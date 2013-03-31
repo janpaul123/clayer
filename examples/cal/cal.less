@@ -1,0 +1,282 @@
+// MIT License.
+// Based on GAL 9000 by Google (http://www.apache.org/licenses/LICENSE-2.0), released under the Apache license.
+@import "../../clayer.less";
+
+// Border Radius
+.border-radius(@radius) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+body {
+	color: #fff;
+	font: 10pt 'Droid Sans', Arial;
+	background: url('grid_bg.png'),
+							-webkit-radial-gradient(50% 50%, circle, #ccc, #000);
+}
+canvas {
+	width: 100%;
+}
+
+button {
+	outline: none;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: pointer;
+	text-shadow: 1px 1px #fff;
+	font-weight: 700;
+	font-size: 10pt;
+	color: black;
+	background: -webkit-linear-gradient(top, #F9F9F9 40%, #E3E3E3 70%);
+	border: 1px solid #999;
+	border-radius: 3px;
+	padding: 5px 8px;
+	margin: 0;
+	vertical-align: middle;
+}
+
+button:not([disabled]):active {
+	background: -webkit-linear-gradient(top, #E3E3E3 40%, #F9F9F9 70%);
+}
+
+button[disabled] {
+	color: #ccc;
+}
+
+button:not([disabled]):hover {
+	border-color: black;
+}
+
+input[type="range"],
+input[type="checkbox"],
+select {
+	vertical-align: middle;
+}
+
+select {
+	position: absolute;
+	top: 15px;
+}
+
+details, select {
+	left: 15px;
+}
+
+details {
+	position: absolute;
+	top: 15px;
+	background: -webkit-linear-gradient(top, white, #ccc);
+	border-radius: 10px;
+	padding: 10px;
+	color: #555;
+}
+
+details summary {
+	font-weight: bold;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+details > button {
+	vertical-align: top;
+}
+
+details > div > span {
+	width: 90px;
+	display: inline-block;
+}
+
+#container {
+	padding: 0px;
+	margin: 0px auto;
+	height: 100%;
+	width: 900px;
+	text-align: center;
+	position: relative;
+}
+
+.background {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 900px;
+	height: 100%;
+	background-color: rgba(0,0,0,0.2);
+}
+
+.circle {
+	border-radius: 50%;
+}
+
+#hal {
+	width: 250px;
+	height: 250px;
+	background: -webkit-linear-gradient(left, transparent, #fff 40%, #fff 45%, #fff 55%, #fff 60%, transparent),
+							-webkit-linear-gradient(-45deg, transparent, transparent 35%, white 50%, transparent 65%, transparent),
+							-webkit-linear-gradient(45deg, transparent, transparent 35%, white 50%, transparent 65%, transparent),
+							#3c3734;
+	background-size: 75% 50%, 50% 100%, 50% 100%, 100% 100%;
+	background-position: 50% top, right -50px, left -50px, 50% 50%;
+	background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+	display: -webkit-box;
+	-webkit-box-align: center;
+	-webkit-box-pack: center;
+	box-shadow: 0 5px 20px black;
+	position: absolute;
+	left: 100px;
+	top: 100px;
+}
+
+#hal .inner {
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+	display: -webkit-box;
+}
+
+#hal .inner {
+	width: 95%;
+	height: 95%;
+}
+
+#hal > .inner {
+	background: -webkit-linear-gradient(left, transparent,  transparent 32%, white 45%, white 50%, white 55%, transparent 68%, transparent),
+							-webkit-linear-gradient(-45deg, transparent, transparent 40%, white 50%, transparent 60%, transparent),
+							-webkit-linear-gradient(45deg, transparent, transparent 40%, white 50%, transparent 60%, transparent),
+							-webkit-linear-gradient(top, #b5a5a8, #92807e);
+	background-size: 100% 50%, 50% 100%, 50% 100%, 100% 100%;
+	background-position: 50% bottom, left 50px, right 50px, center center;
+	background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+}
+
+#hal .inner .inner {
+	width: 90%;
+	height: 90%;
+	background: url(glare.png), url(glare2.png), -webkit-radial-gradient(50% 50%, circle, #fffa64, #fd0d00 5%, #f40c00 20%, #ef0b00 20%, black 63%);
+	background-repeat: no-repeat, no-repeat, no-repeat;
+	background-size: 76% 41%, 55% 100%, 100%, 100%;
+	background-position: 50% 12%, 27% 8px, center center;
+	overflow: hidden;
+	background-color: black;
+}
+.hidden {
+	display: none;
+}
+
+#plot-background {
+	position: absolute;
+	left: 450px;
+	width: 400px;
+	height: 250px;
+	top: 70px;
+	background-color: hsla(0, 0%, 85%, 0.9);
+	.border-radius(10px);
+}
+
+#plot-canvas {
+	position: absolute;
+	top: 70px;
+	left: 0px;
+	width: 850px;
+	height: 250px;
+}
+
+#plot-overlay {
+	position: absolute;
+	left: 450px;
+	width: 400px;
+	height: 250px;
+	top: 70px;
+	cursor: pointer;
+
+	#plot-compare {
+		position: absolute;
+		top: 5px;
+		width: 100px;
+		margin-left: -36px;
+		text-align: center;
+		font-size: 12px;
+		line-height: 12px;
+		color: #666;
+		display: none;
+	}
+}
+
+#moveme {
+	position: absolute;
+	top: 360px;
+	left: 225px;
+	width: 100px;
+	margin-left: -50px;
+	text-align: center;
+	font-size: 14px;
+	line-height: 14px;
+	color: #a33;
+	background-color: hsla(0, 0%, 0%, 0.4);
+	padding: 10px 0;
+	border-radius: 10px;
+	display: none;
+}
+
+#hal-button-container {
+	position: absolute;
+	height: 250px;
+	width: 350px;
+	left: 50px;
+	top: 150px;
+
+	#hal-button {
+		position: absolute;
+		left: 175px;
+		top: 190px;
+	}
+}
+
+#volume {
+	position: absolute;
+	left: 450px;
+	width: 400px;
+	height: 50px;
+	top: 340px;
+	background-color: hsla(0, 0%, 85%, 0.9);
+	.border-radius(10px);
+
+	#volume-label {
+		position: absolute;
+		top: 18px;
+		left: 10px;
+		width: 100px;
+		text-align: center;
+		font-size: 16px;
+		line-height: 16px;
+		color: #222;
+	}
+
+	#volume-slider {
+		position: absolute;
+		top: 4px;
+		right: 20px;
+		width: 255px;
+		padding: 20px 5px;
+	}
+}
+
+#description {
+	position: absolute;
+	left: 200px;
+	width: 500px;
+	top: 440px;
+	background-color: hsla(0, 0%, 85%, 0.9);
+	.border-radius(10px);
+	padding: 10px;
+	font-size: 12px;
+	line-height: 12px;
+	color: #111;
+	text-align: left;
+}
