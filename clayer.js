@@ -463,19 +463,19 @@
 		},
 
 		scrubLeave: function() {
-      this.$knob.removeClass('clayer-active clayer-pressed');
-      this.updateKnobValue(this.markerValue);
-      clayer.makeCall(this.callbacks, 'sliderLeave');
-    },
+			this.$knob.removeClass('clayer-active clayer-pressed');
+			this.updateKnobValue(this.markerValue);
+			clayer.makeCall(this.callbacks, 'sliderLeave');
+		},
 
-    scrubTap: function() {
-      this.$knob.removeClass('clayer-slider-knob-jump');
-      setTimeout($.proxy(this.startJump, this), 0);
-    },
+		scrubTap: function() {
+			this.$knob.removeClass('clayer-slider-knob-jump');
+			setTimeout($.proxy(this.startJump, this), 0);
+		},
 
-    startJump: function() {
+		startJump: function() {
 			this.$knob.addClass('clayer-slider-knob-jump');
-    }
+		}
 	};
 
 	clayer.Draggable = function() { return this.init.apply(this, arguments); };
