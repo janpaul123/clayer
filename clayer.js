@@ -302,9 +302,10 @@
 
 	clayer.Scrubbable = function() { return this.init.apply(this, arguments); };
 	clayer.Scrubbable.prototype = {
-		init: function($element, callbacks) {
+		init: function($element, callbacks, options) {
 			this.$element = $element;
 			this.callbacks = callbacks;
+			this.options = options || {};
 			this.touchable = new clayer.Touchable($element, this);
 			this.setScrubbable(true);
 		},
@@ -315,7 +316,12 @@
 
 		setScrubbable: function(value) {
 			this.touchable.setTouchable(value);
-			this.touchable.setHoverable(value);
+
+			if (this.options.disableHover) {
+				this.touchable.setHoverable(false);
+			} else {
+				this.touchable.setHoverable(value);
+			}
 		},
 
 		hoverMove: function(event) {
@@ -348,7 +354,7 @@
 
 	clayer.Slider = function() { return this.init.apply(this, arguments); };
 	clayer.Slider.prototype = {
-		init: function($element, callbacks, valueWidth) {
+		init: function($element, callbacks, valueWidth, options) {
 			this.$element = $element;
 			this.$element.addClass('clayer-slider');
 			this.callbacks = callbacks;
@@ -374,7 +380,7 @@
 			this.$knob = $('<div class="clayer-slider-knob"></div>');
 			this.$container.append(this.$knob);
 
-			this.scrubbable = new clayer.Scrubbable(this.$element, this);
+			this.scrubbable = new clayer.Scrubbable(this.$element, this, options);
 
 			this.bounceTimer = null;
 
