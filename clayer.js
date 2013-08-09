@@ -55,7 +55,7 @@
 	// ## Touchable
 	// `clayer.Touchable` provides an abstraction over touch and mouse events.
 	// We make a distinction between hover and touch/click events. First we look at the latter.
-	// 
+	//
 	clayer.Touchable = function() { return this.init.apply(this, arguments); };
 	clayer.Touchable.prototype = {
 		init: function($element, callbacks) {
@@ -133,7 +133,7 @@
 					mousemove: this.mouseMove,
 					mouseup: this.mouseUp
 				});
-				
+
 				this.touchEvent = new clayer.PositionEvent(this.$element, event, event.timeStamp, true);
 				clayer.makeCall(this.callbacks, 'touchDown', [this.touchEvent]);
 			}
@@ -173,7 +173,7 @@
 					touchend: this.touchEnd,
 					touchcancel: this.touchEnd
 				});
-			
+
 				this.touchEvent = new clayer.PositionEvent(this.$element, event.originalEvent.targetTouches[0], event.timeStamp, false);
 				clayer.makeCall(this.callbacks, 'touchDown', [this.touchEvent]);
 			}
@@ -445,17 +445,6 @@
 
 		renderKnob: function() {
 			this.$knob.css('left', (this.knobValue+0.5)*this.valueWidth);
-
-			if (this.bounceTimer !== null) {
-				this.bounceProgress = Math.min(this.bounceProgress + 0.04, 1);
-				var p = this.bounceProgress;
-				var jumpY = (p < 0.5) ? (15*(1-Math.pow(4*p-1, 2))) : (4*(1-Math.pow(4*(p-0.5)-1, 2)));
-				this.$knob.css('top', -jumpY);
-				if (this.bounceProgress >= 1) {
-					clearInterval(this.bounceTimer);
-					this.bounceTimer = null;
-				}
-			}
 		},
 
 		renderMarker: function() {
@@ -474,17 +463,19 @@
 		},
 
 		scrubLeave: function() {
-			this.$knob.removeClass('clayer-active clayer-pressed');
-			this.updateKnobValue(this.markerValue);
-			clayer.makeCall(this.callbacks, 'sliderLeave');
-		},
+      this.$knob.removeClass('clayer-active clayer-pressed');
+      this.updateKnobValue(this.markerValue);
+      clayer.makeCall(this.callbacks, 'sliderLeave');
+    },
 
-		scrubTap: function() {
-			if (this.bounceTimer === null) {
-				this.bounceTimer = setInterval($.proxy(this.renderKnob, this), 20);
-				this.bounceProgress = 0;
-			}
-		}
+    scrubTap: function() {
+      this.$knob.removeClass('clayer-slider-knob-jump');
+      setTimeout($.proxy(this.startJump, this), 0);
+    },
+
+    startJump: function() {
+			this.$knob.addClass('clayer-slider-knob-jump');
+    }
 	};
 
 	clayer.Draggable = function() { return this.init.apply(this, arguments); };

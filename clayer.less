@@ -1,5 +1,30 @@
 // MIT License
 
+.transform(...) {
+  -webkit-transform: @arguments;
+  -moz-transform: @arguments;
+  -ms-transform: @arguments;
+  -o-transform: @arguments;
+  transform: @arguments;
+}
+
+.jump(@size) {
+  0% { .transform(translate3d(0,0,0)); }
+  50% { .transform(translate3d(0,@size,0)); }
+  100% { .transform(translate3d(0,0,0)); }
+}
+
+@-webkit-keyframes clayer-jump { .jump(-15px); }
+@-moz-keyframes clayer-jump { .jump(-15px); }
+@-ms-keyframes clayer-jump { .jump(-15px); }
+@-o-keyframes clayer-jump { .jump(-15px); }
+@keyframes clayer-jump { .jump(-15px); }
+@-webkit-keyframes clayer-jump-small { .jump(-5px); }
+@-moz-keyframes clayer-jump-small { .jump(-5px); }
+@-ms-keyframes clayer-jump-small { .jump(-5px); }
+@-o-keyframes clayer-jump-small { .jump(-5px); }
+@keyframes clayer-jump-small { .jump(-5px); }
+
 #clayer {
 	// Border Radius
 	.border-radius(@radius) {
@@ -127,6 +152,24 @@
 			top: 0px;
 			#clayer > .knob(11px);
 			margin-left: -5.6px; // fix small rounding error
+
+      // force hardware acceleration
+      .transform(translate3d(0,0,0));
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+      -o-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      -moz-perspective: 1000;
+      -ms-perspective: 1000;
+      -o-perspective: 1000;
+      perspective: 1000;
+
+      &.clayer-slider-knob-jump {
+        -webkit-animation: clayer-jump 0.25s cubic-bezier(0.0, 0.3, 1, 0.6) 0s 1 forwards, clayer-jump-small 0.2s cubic-bezier(0, 0.3, 1, 0.6) 0.25s 1 forwards;
+        animation: clayer-jump 0.25s cubic-bezier(0.0, 0.3, 1, 0.6) 0s 1 forwards, clayer-jump-small 0.2s cubic-bezier(0, 0.3, 1, 0.6) 0.25s 1 forwards;
+      }
 		}
 	}
 }
@@ -158,7 +201,7 @@
 	.clayer-dragknob {
 		display: none;
 	}
-	
+
 	&:hover .clayer-dragknob, .clayer-dragknob.clayer-pressed {
 		display: block;
 	}
