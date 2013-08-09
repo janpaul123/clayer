@@ -315,13 +315,11 @@
 		},
 
 		setScrubbable: function(value) {
-			this.touchable.setTouchable(value);
-
 			if (this.options.disableHover) {
-				this.touchable.setHoverable(false);
-			} else {
-				this.touchable.setHoverable(value);
+				value = false;
 			}
+
+			this.touchable.setHoverable(value);
 		},
 
 		hoverMove: function(event) {
